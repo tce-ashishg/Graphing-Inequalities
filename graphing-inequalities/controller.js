@@ -34,6 +34,6 @@ class GraphicController {
         const correctPointX = model.getCorrectPointX();
         this.view.displayLine(this.model.start, 400, this.model.end, this.model.range);
         this.view.drawPoint(correctPointX, 375, 15);
-        this.view.drawDraggingLine(this.model.start, 375, correctPointX, this.model.end);
+        this.view.resultDraggingLine(this.model.start, 375, correctPointX, this.model.end, this.model.correctDirection);
     }
 }

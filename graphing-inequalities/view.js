@@ -123,6 +123,28 @@ class GraphicView {
 
     }
 
+    resultDraggingLine(start, pointY, pointX, end, correctDirection) {
+        stroke(144, 3, 252);
+        strokeWeight(3);
+
+
+        if (correctDirection == 'left') {
+            line(start - 10, pointY - 25, pointX, pointY - 25);
+            //Arrow left side
+            line(start - 10, pointY - 25, start - 5, pointY - 30);
+            line(start - 10, pointY - 25, start - 5, pointY - 20);
+
+        }
+        if (correctDirection == 'right') {
+            line(pointX, pointY - 25, end + 10, pointY - 25);
+
+            //Arrow right side
+            line(end + 10, pointY - 25, end + 5, pointY - 30);
+            line(end + 10, pointY - 25, end + 5, pointY - 20);
+
+        }
+    }
+
 
     drawToggle() {
 

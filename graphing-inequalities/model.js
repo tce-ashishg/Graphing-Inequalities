@@ -72,6 +72,7 @@ class GraphicModel {
             (this.correctDirection === "both" && leftToggle && rightToggle))) {
             return true;
         }
+        console.log(this.correctDirection);
         return false;
 
         // if (!this.question) return false;
