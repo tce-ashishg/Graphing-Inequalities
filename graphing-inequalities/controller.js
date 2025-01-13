@@ -16,12 +16,13 @@ class GraphicController {
 
     handleMouseDragged(mouseX){
         if(this.dragged){
-            let constranedX = constrain(mouseX, this.model.start + 30, this.model.end - 30);
-            this.model.pointX = this.model.getClosesetTick(constranedX);
+            let constrainedX = constrain(mouseX, this.model.start + this.model.snappingRange, this.model.end - this.model.snappingRange);
+            this.model.pointX = this.model.getClosesetTick(constrainedX);
         }
     }
 
     updateAndDraw(){
+        this.view.displayQuestions();
         this.view.displayLine();
         this.view.drawPoint();
         this.view.drawDraggingLine();

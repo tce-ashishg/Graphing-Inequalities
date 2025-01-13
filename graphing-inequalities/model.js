@@ -8,6 +8,9 @@ class GraphicModel{
         this.pointX = this.mapValueToPixel(0);
         this.pointY = 200;
         this.snappingRange = 30;
+        this.question = null;
+        this.questionBank = [];
+        this.generateQuestions();
     }
 
     mapValueToPixel(value){
@@ -17,6 +20,21 @@ class GraphicModel{
     mapPixelToValue(pixel){
         return map(pixel, this.start, this.end, -this.range, this.range);
     }
+
+
+    generateQuestions(){
+        const operators = ['<', '>', '<=', '>=', '!=', '='];
+        for(let i = -14; i<= 14; i++){
+            for(let op of operators){
+                this.questionBank.push(`x ${op} ${i}`)
+            }
+        }
+    }
+
+    getQuestion(){
+        let index = Math.floor(Math.random() * this.questionBank.length);
+        return this.question = this.questionBank[index];
+    }
     
     getClosesetTick(pixel){
         let value = this.mapPixelToValue(pixel);
@@ -25,3 +43,18 @@ class GraphicModel{
     }
 
 }
+
+
+// {
+//     text : `x ${op} ${i}`,
+//     correct : (x) => {
+//         switch (op) {
+//             case "<" : return x < i;
+//             case ">" : return x > i;
+//             case "<=" : return x <= i;
+//             case ">=" : return x >= i;
+//             case "!=" : return x != i;
+//             case "=" : return x = i;
+//         }
+//     }
+// }

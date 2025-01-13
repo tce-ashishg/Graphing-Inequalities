@@ -3,18 +3,30 @@ class GraphicView {
 
     constructor(model) {
         this.model = model;
-        
         this.leftToggleState = true;
         this.rightToggleState = true;
     }
 
 
-    handleMousePressed(mouseX, mouseY){
+    displayQuestions() {
+        fill(0);
+        textSize(16);
+        textAlign(LEFT, CENTER);
+        if (this.model.question) {
+            text(`Graph the inequality ${this.model.question}`, this.model.start, 50);
+        }
+        else {
+            text('Press the New Problem Button to get started!', this.model.start, 50);
+        }
+    }
+
+
+    handleMousePressed(mouseX, mouseY) {
         let d1 = dist(mouseX, mouseY, this.model.start + 20, this.model.pointY + 50);
-        console.log(d1);
-        if(d1 < 25){
-            if(this.leftToggleState){
-            this.leftToggleState = false;
+        //console.log(d1);
+        if (d1 < 25) {
+            if (this.leftToggleState) {
+                this.leftToggleState = false;
             }
             else {
                 this.leftToggleState = true;
@@ -22,10 +34,10 @@ class GraphicView {
         }
 
         let d2 = dist(mouseX, mouseY, this.model.end - 20, this.model.pointY + 50);
-        console.log(d2);
+        // console.log(d2);
 
-        if(d2 < 25){
-            if(this.rightToggleState){
+        if (d2 < 25) {
+            if (this.rightToggleState) {
                 this.rightToggleState = false;
             }
             else {
@@ -89,7 +101,7 @@ class GraphicView {
             line(this.model.start - 10, this.model.pointY - 25, this.model.start - 5, this.model.pointY - 20);
 
         }
-         if (this.rightToggleState) {
+        if (this.rightToggleState) {
             line(this.model.pointX, this.model.pointY - 25, this.model.end + 10, this.model.pointY - 25);
 
             //Arrow right side
