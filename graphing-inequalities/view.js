@@ -46,36 +46,36 @@ class GraphicView {
         }
     }
 
-    displayLine() {
+    displayLine(start, pointY, end, range) {
 
         fill(0);
         stroke(0);
         strokeWeight(2);
-        line(this.model.start - 10, this.model.pointY, this.model.end + 10, this.model.pointY);
+        line(start - 10, pointY, end + 10, pointY);
 
-        for (let i = -this.model.range; i <= this.model.range; i++) {
+        for (let i = -range; i <= range; i++) {
             const x = this.model.mapValueToPixel(i);
             stroke(0);
             strokeWeight(2);
-            line(x, this.model.pointY - 5, x, this.model.pointY + 5);
+            line(x, pointY - 5, x, pointY + 5);
 
             if (i % 2 === 0) {
                 fill(0);
                 noStroke();
                 textSize(12);
                 textAlign(CENTER, CENTER);
-                text(i, x, this.model.pointY + 15);
+                text(i, x, pointY + 15);
             }
 
         }
 
         //Arrow left side
-        line(this.model.start - 10, this.model.pointY, this.model.start - 5, this.model.pointY - 5);
-        line(this.model.start - 10, this.model.pointY, this.model.start - 5, this.model.pointY + 5);
+        line(start - 10, pointY, start - 5, pointY - 5);
+        line(start - 10, pointY, start - 5, pointY + 5);
 
         //Arrow right side
-        line(this.model.end + 10, this.model.pointY, this.model.end + 5, this.model.pointY - 5);
-        line(this.model.end + 10, this.model.pointY, this.model.end + 5, this.model.pointY + 5);
+        line(end + 10, pointY, end + 5, pointY - 5);
+        line(end + 10, pointY, end + 5, pointY + 5);
     }
 
     drawPoint() {

@@ -55,11 +55,16 @@ class GraphicModel {
             case "<=": return x <= Number(num);
             case ">=": return x >= Number(num);
             case "!=": return x != Number(num);
-            case "=": return x = Number(num);
+            case "=": return x == Number(num);
             default :
             return false;
         }
 
+    }
+
+    getCorrectPointX() {
+        const [_, operator, num] = this.question.split(' ');
+        return this.mapValueToPixel(Number(num));
     }
 
 }

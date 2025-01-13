@@ -19,11 +19,10 @@ function setup() {
     newProblemButton = createButton('New Problem');
     newProblemButton.position(width - 50, height - 20);
     newProblemButton.mousePressed(() => {
-        model.getQuestion();
-
+        restToDefault();
     });
 
-    checkAnswerButton = createButton('Check 1');
+    checkAnswerButton = createButton(`Check ${attempts}`);
     checkAnswerButton.position(this.model.start, this.model.pointY + 70);
     checkAnswerButton.mousePressed(() => {
 
@@ -52,9 +51,36 @@ function setup() {
 
 }
 
+
+function restToDefault(){
+    model.getQuestion();
+    feedbackMessage = "";
+    attempts = 3;
+    showCorrectAnswer = false;
+    checkAnswerButton.html(`Check ${attempts}`);
+    checkAnswerButton.removeAttribute('disabled');
+    lastCheckedPointX = null;
+    model.pointX = model.mapValueToPixel(0);
+}
+
+
 function draw() {
     background(255);
     controller.updateAndDraw();
+
+    //display feedback
+
+    fill(0);
+    textSize(16);
+    textAlign(CENTER, CENTER);
+    text(`${feedbackMessage}`, model.start + 100, model.pointY + 100);
+    console.log(showCorrectAnswer);
+    if(showCorrectAnswer){
+        const correctPointX = model.getCorrectPointX();
+       // const correctValueX = model.getCorrectValueX();
+        //view.displayLine(this.model.start, 100, this.model.end, this.model.range);
+    }
+
 }
 
 

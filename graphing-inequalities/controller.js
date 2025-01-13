@@ -23,7 +23,7 @@ class GraphicController {
 
     updateAndDraw(){
         this.view.displayQuestions();
-        this.view.displayLine();
+        this.view.displayLine(this.model.start, this.model.pointY, this.model.end, this.model.range);
         this.view.drawPoint();
         this.view.drawDraggingLine();
         this.view.drawToggle();
