@@ -8,8 +8,9 @@ class GraphicModel {
         this.pointX = this.mapValueToPixel(0);
         this.pointY = 200;
         this.snappingRange = 30;
-        this.question = null;
-        this.questionBank = [];
+        this.question = "";
+        this.correctValue = 0;
+        this.correctDirection = "";
         this.generateQuestions();
     }
 
@@ -24,17 +25,36 @@ class GraphicModel {
 
     generateQuestions() {
         const operators = ['<', '>', '<=', '>=', '!=', '='];
-        for (let i = -14; i <= 14; i++) {
-            for (let op of operators) {
-                this.questionBank.push(`x ${op} ${i}`)
-            }
-        }
+        const randomOperator = operators[Math.floor(Math.random() * operators.length)];
+        let randomNumber;
+
+        do {
+            randomNumber = Math.floor(Math.random() * 29) - 14;
+        } while (randomNumber === 0);
+
+        this.question = `x ${randomOperator} ${randomNumber}`;
+        this.correctValue = randomNumber;
+        this.correctDirection = this.getDirection(randomOperator);
     }
 
-    getQuestion() {
-        let index = Math.floor(Math.random() * this.questionBank.length);
-        return this.question = this.questionBank[index];
+    getDirection(operator) {
+
+        if (operator === "<" || operator === "<=") {
+            return "left";
+        }
+        if (operator === ">" || operator === ">=") {
+            return "right";
+        }
+        if (operator === "=" || operator === "!=") {
+            return "both"; // Both directions for != and =
+        }
+        return "";
     }
+
+    // getQuestion() {
+    //     let index = Math.floor(Math.random() * this.questionBank.length);
+    //     return this.question = this.questionBank[index];
+    // }
 
     getClosesetTick(pixel) {
         let value = this.mapPixelToValue(pixel);
@@ -43,22 +63,32 @@ class GraphicModel {
     }
 
 
-    checkAnswer() {
-        if (!this.question) return false;
+    checkAnswer(leftToggle, rightToggle) {
 
-        const [_, operator, num] = this.question.split(' ');
-        const x = Math.round(this.mapPixelToValue(this.pointX));
+        const selectValue = this.mapPixelToValue(this.pointX);
 
-        switch (operator) {
-            case "<": return x < Number(num);
-            case ">": return x > Number(num);
-            case "<=": return x <= Number(num);
-            case ">=": return x >= Number(num);
-            case "!=": return x != Number(num);
-            case "=": return x == Number(num);
-            default :
-            return false;
+        if (selectValue === this.correctValue && ((this.correctDirection === "left" && leftToggle && !rightToggle) ||
+            (this.correctDirection === "right" && rightToggle && !leftToggle) ||
+            (this.correctDirection === "both" && leftToggle && rightToggle))) {
+            return true;
         }
+        return false;
+
+        // if (!this.question) return false;
+
+        // const [_, operator, num] = this.question.split(' ');
+        // const x = Math.round(this.mapPixelToValue(this.pointX));
+
+        // switch (operator) {
+        //     case "<": return x < Number(num);
+        //     case ">": return x > Number(num);
+        //     case "<=": return x <= Number(num);
+        //     case ">=": return x >= Number(num);
+        //     case "!=": return x != Number(num);
+        //     case "=": return x == Number(num);
+        //     default:
+        //         return false;
+        // }
 
     }
 

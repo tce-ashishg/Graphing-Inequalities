@@ -25,9 +25,9 @@ function setup() {
     checkAnswerButton = createButton(`Check ${attempts}`);
     checkAnswerButton.position(this.model.start, this.model.pointY + 70);
     checkAnswerButton.mousePressed(() => {
-
         if (attempts > 0 && model.pointX !== lastCheckedPointX) {
-            const result = model.checkAnswer();
+
+            const result = model.checkAnswer(view.leftToggleState, view.rightToggleState);
             lastCheckedPointX = model.pointX;
 
             if (result) {
@@ -53,7 +53,7 @@ function setup() {
 
 
 function restToDefault(){
-    model.getQuestion();
+    model.generateQuestions();
     feedbackMessage = "";
     attempts = 3;
     showCorrectAnswer = false;
@@ -61,6 +61,8 @@ function restToDefault(){
     checkAnswerButton.removeAttribute('disabled');
     lastCheckedPointX = null;
     model.pointX = model.mapValueToPixel(0);
+    view.leftToggleState = true;
+    view.rightToggleState = true;
 }
 
 
@@ -74,12 +76,19 @@ function draw() {
     textSize(16);
     textAlign(CENTER, CENTER);
     text(`${feedbackMessage}`, model.start + 100, model.pointY + 100);
-    console.log(showCorrectAnswer);
+
     if(showCorrectAnswer){
         const correctPointX = model.getCorrectPointX();
        // const correctValueX = model.getCorrectValueX();
         //view.displayLine(this.model.start, 100, this.model.end, this.model.range);
     }
+
+    // if (lastCheckedPointX !== model.pointX) {
+    //     if (attempts > 0 && !showCorrectAnswer) {
+    //         checkAnswerButton.removeAttribute('disabled'); // Enable button
+    //     }
+    // }
+    // lastCheckedPointX = model.pointX; 
 
 }
 
