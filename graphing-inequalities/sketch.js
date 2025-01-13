@@ -5,7 +5,7 @@ let controller;
 let checkAnswerButton;
 let newProblemButton;
 let feedbackMessage = "";
-let attempts = 3;
+//let attempts = 3;
 let lastCheckedPointX = null;
 let showCorrectAnswer = false;
 
@@ -22,10 +22,10 @@ function setup() {
         restToDefault();
     });
 
-    checkAnswerButton = createButton(`Check ${attempts}`);
+    checkAnswerButton = createButton(`Check ${model.attempts}`);
     checkAnswerButton.position(this.model.start, this.model.pointY + 70);
     checkAnswerButton.mousePressed(() => {
-        if (attempts > 0 && model.pointX !== lastCheckedPointX) {
+        if (model.attempts > 0 && model.pointX !== lastCheckedPointX) {
 
             const result = model.checkAnswer(view.leftToggleState, view.rightToggleState);
             lastCheckedPointX = model.pointX;
@@ -36,13 +36,13 @@ function setup() {
                 checkAnswerButton.attribute('disabled', true);
             }
             else {
-                attempts--;
-                feedbackMessage = `Incorrect❌ ${attempts} attempts remaining.`;
-                checkAnswerButton.html(`Check ${attempts}`);
-                if (attempts == 0) {
+                model.attempts--;
+                feedbackMessage = `Incorrect❌ ${model.attempts} attempts remaining.`;
+                checkAnswerButton.html(`Check ${model.attempts}`);
+                if (model.attempts == 0) {
                     showCorrectAnswer = true;
                     feedbackMessage = `Incorrect❌ Correct answer displayed below.`;
-                    checkAnswerButton.html(`Check ${attempts}`);
+                    checkAnswerButton.html(`Check ${model.attempts}`);
                     checkAnswerButton.attribute('disabled', true);
                 }
             }
@@ -55,9 +55,9 @@ function setup() {
 function restToDefault(){
     model.generateQuestions();
     feedbackMessage = "";
-    attempts = 3;
+    model.attempts = 3;
     showCorrectAnswer = false;
-    checkAnswerButton.html(`Check ${attempts}`);
+    checkAnswerButton.html(`Check ${model.attempts}`);
     checkAnswerButton.removeAttribute('disabled');
     lastCheckedPointX = null;
     model.pointX = model.mapValueToPixel(0);
@@ -76,6 +76,7 @@ function draw() {
     textSize(16);
     textAlign(CENTER, CENTER);
     text(`${feedbackMessage}`, model.start + 150, model.pointY + 100);
+
     if(showCorrectAnswer){
         controller.displaySolution();
 

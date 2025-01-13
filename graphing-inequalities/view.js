@@ -78,14 +78,14 @@ class GraphicView {
         line(end + 10, pointY, end + 5, pointY + 5);
     }
 
-    drawPoint(pointX, pointY, size) {
-        fill(144, 3, 252);
+    drawPoint(pointX, pointY, size, c) {
+        fill(c);
         noStroke();
         ellipse(pointX, pointY - 25, 15);
 
 
         fill(144, 3, 252, 0.5);
-        stroke(144, 3, 252);
+        stroke(c);
         ellipse(pointX, pointY - 25, size + 10);
 
     }
@@ -124,18 +124,18 @@ class GraphicView {
     }
 
     resultDraggingLine(start, pointY, pointX, end, correctDirection) {
-        stroke(144, 3, 252);
+
+        stroke(46,139,87);
         strokeWeight(3);
 
-
-        if (correctDirection == 'left') {
+        if (correctDirection == 'left' || correctDirection == 'both') {
             line(start - 10, pointY - 25, pointX, pointY - 25);
             //Arrow left side
             line(start - 10, pointY - 25, start - 5, pointY - 30);
             line(start - 10, pointY - 25, start - 5, pointY - 20);
 
         }
-        if (correctDirection == 'right') {
+        if (correctDirection == 'right' || correctDirection == 'both') {
             line(pointX, pointY - 25, end + 10, pointY - 25);
 
             //Arrow right side

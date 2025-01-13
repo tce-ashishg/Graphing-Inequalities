@@ -11,6 +11,7 @@ class GraphicModel {
         this.question = "";
         this.correctValue = 0;
         this.correctDirection = "";
+        this.attempts = 3;
         this.generateQuestions();
     }
 
@@ -72,7 +73,7 @@ class GraphicModel {
             (this.correctDirection === "both" && leftToggle && rightToggle))) {
             return true;
         }
-        console.log(this.correctDirection);
+       // console.log(this.correctDirection);
         return false;
 
         // if (!this.question) return false;

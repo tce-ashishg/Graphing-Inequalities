@@ -1,0 +1,32 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="p5.js"></script>
+</head>
+<body>
+    <script>
+        let slider;
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+
+  // Create a slider and place it at the top of the canvas.
+  // Set its default value to 0.
+  // Set its step size to 0 so that it moves smoothly.
+  slider = createSlider(0, 255, 0, 10);
+  slider.position(10, 10);
+  slider.size(400);
+
+  describe('A black square with a range slider at the top. The square changes color when the slider is moved.');
+}
+
+function draw() {
+  // Use the slider as a grayscale value.
+  let g = slider.value();
+  background(g);
+}
+    </script>
+</body>
+</html>
