@@ -10,7 +10,7 @@ class GraphicView {
 
     displayQuestions() {
         fill(0);
-        textSize(16);
+        textSize(20);
         textAlign(LEFT, CENTER);
         if (this.model.question) {
             text(`Graph the inequality ${this.model.question}`, this.model.start, 50);
@@ -78,35 +78,35 @@ class GraphicView {
         line(end + 10, pointY, end + 5, pointY + 5);
     }
 
-    drawPoint() {
+    drawPoint(pointX, pointY, size) {
         fill(144, 3, 252);
         noStroke();
-        ellipse(this.model.pointX, this.model.pointY - 25, 15);
+        ellipse(pointX, pointY - 25, 15);
 
 
         fill(144, 3, 252, 0.5);
         stroke(144, 3, 252);
-        ellipse(this.model.pointX, this.model.pointY - 25, 25);
+        ellipse(pointX, pointY - 25, size + 10);
 
     }
 
-    drawDraggingLine() {
+    drawDraggingLine(start, pointY, pointX, end) {
         stroke(144, 3, 252);
         strokeWeight(3);
 
         if (this.leftToggleState) {
-            line(this.model.start - 10, this.model.pointY - 25, this.model.pointX, this.model.pointY - 25);
+            line(start - 10, pointY - 25, pointX, pointY - 25);
             //Arrow left side
-            line(this.model.start - 10, this.model.pointY - 25, this.model.start - 5, this.model.pointY - 30);
-            line(this.model.start - 10, this.model.pointY - 25, this.model.start - 5, this.model.pointY - 20);
+            line(start - 10, pointY - 25, start - 5, pointY - 30);
+            line(start - 10, pointY - 25, start - 5, pointY - 20);
 
         }
         if (this.rightToggleState) {
-            line(this.model.pointX, this.model.pointY - 25, this.model.end + 10, this.model.pointY - 25);
+            line(pointX, pointY - 25, end + 10, pointY - 25);
 
             //Arrow right side
-            line(this.model.end + 10, this.model.pointY - 25, this.model.end + 5, this.model.pointY - 30);
-            line(this.model.end + 10, this.model.pointY - 25, this.model.end + 5, this.model.pointY - 20);
+            line(end + 10, pointY - 25, end + 5, pointY - 30);
+            line(end + 10, pointY - 25, end + 5, pointY - 20);
 
         }
 

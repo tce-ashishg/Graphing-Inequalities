@@ -6,7 +6,7 @@ class GraphicModel {
         this.start = 50;
         this.end = 950;
         this.pointX = this.mapValueToPixel(0);
-        this.pointY = 200;
+        this.pointY = 150;
         this.snappingRange = 30;
         this.question = "";
         this.correctValue = 0;

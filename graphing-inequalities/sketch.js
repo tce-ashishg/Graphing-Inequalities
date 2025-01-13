@@ -75,12 +75,10 @@ function draw() {
     fill(0);
     textSize(16);
     textAlign(CENTER, CENTER);
-    text(`${feedbackMessage}`, model.start + 100, model.pointY + 100);
-
+    text(`${feedbackMessage}`, model.start + 150, model.pointY + 100);
     if(showCorrectAnswer){
-        const correctPointX = model.getCorrectPointX();
-       // const correctValueX = model.getCorrectValueX();
-        //view.displayLine(this.model.start, 100, this.model.end, this.model.range);
+        controller.displaySolution();
+
     }
 
     // if (lastCheckedPointX !== model.pointX) {

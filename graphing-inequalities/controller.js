@@ -22,10 +22,18 @@ class GraphicController {
     }
 
     updateAndDraw(){
-        this.view.displayQuestions();
         this.view.displayLine(this.model.start, this.model.pointY, this.model.end, this.model.range);
-        this.view.drawPoint();
-        this.view.drawDraggingLine();
+        this.view.drawPoint(this.model.pointX, this.model.pointY, 15);
+        this.view.drawDraggingLine(this.model.start, this.model.pointY, this.model.pointX, this.model.end);
         this.view.drawToggle();
+        this.view.displayQuestions();
+
+    }
+
+    displaySolution(){
+        const correctPointX = model.getCorrectPointX();
+        this.view.displayLine(this.model.start, 400, this.model.end, this.model.range);
+        this.view.drawPoint(correctPointX, 375, 15);
+        this.view.drawDraggingLine(this.model.start, 375, correctPointX, this.model.end);
     }
 }
