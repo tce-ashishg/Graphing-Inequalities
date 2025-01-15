@@ -8,13 +8,14 @@ let feedbackMessage = "";
 //let attempts = 3;
 let lastCheckedPointX = null;
 let showCorrectAnswer = false;
+let isMousePressed;
+
 
 function setup() {
     createCanvas(1000, 500);
     model = new GraphicModel();
     view = new GraphicView(model);
     controller = new GraphicController(model, view);
-
 
     newProblemButton = createButton('New Problem');
     newProblemButton.position(width - 50, height - 20);
@@ -52,7 +53,7 @@ function setup() {
 }
 
 
-function restToDefault(){
+function restToDefault() {
     model.generateQuestions();
     feedbackMessage = "";
     model.attempts = 3;
@@ -77,11 +78,19 @@ function draw() {
     textAlign(CENTER, CENTER);
     text(`${feedbackMessage}`, model.start + 150, model.pointY + 100);
 
-    if(showCorrectAnswer){
+    if (showCorrectAnswer) {
         controller.displaySolution();
 
     }
 
+    if(mouseIsPressed && !isMousePressed){
+        controller.handleMousePressed(mouseX, mouseY);
+        isMousePressed = true;
+    }
+
+    if(!mouseIsPressed && isMousePressed){
+        isMousePressed = false;
+    }
     // if (lastCheckedPointX !== model.pointX) {
     //     if (attempts > 0 && !showCorrectAnswer) {
     //         checkAnswerButton.removeAttribute('disabled'); // Enable button
@@ -92,9 +101,10 @@ function draw() {
 }
 
 
-function mousePressed() {
-    controller.handleMousePressed(mouseX, mouseY);
-}
+// function mousePressed(evt) {
+//     console.log("🚀 ~ mousePressed ~ evt:", evt)
+//     controller.handleMousePressed(mouseX, mouseY, "sketch 1");
+// }
 
 function mouseDragged() {
     controller.handleMouseDragged(mouseX)

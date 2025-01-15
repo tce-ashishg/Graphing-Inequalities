@@ -21,28 +21,19 @@ class GraphicView {
     }
 
 
-    handleMousePressed(mouseX, mouseY) {
+    handleMousePressed(mouseX, mouseY,callee) {
         let d1 = dist(mouseX, mouseY, this.model.start + 20, this.model.pointY + 50);
-        //console.log(d1);
+        console.log("🚀 ~ GraphicView ~ handleMousePressed ~ callee:", callee)
+
         if (d1 < 25) {
-            if (this.leftToggleState) {
-                this.leftToggleState = false;
-            }
-            else {
-                this.leftToggleState = true;
-            }
+            this.leftToggleState = !this.leftToggleState;
         }
 
         let d2 = dist(mouseX, mouseY, this.model.end - 20, this.model.pointY + 50);
-        // console.log(d2);
+         console.log(d2);
 
         if (d2 < 25) {
-            if (this.rightToggleState) {
-                this.rightToggleState = false;
-            }
-            else {
-                this.rightToggleState = true;
-            }
+            this.rightToggleState = !this.rightToggleState;
         }
     }
 

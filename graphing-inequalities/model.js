@@ -46,8 +46,11 @@ class GraphicModel {
         if (operator === ">" || operator === ">=") {
             return "right";
         }
-        if (operator === "=" || operator === "!=") {
+        if (operator === "!=") {
             return "both"; // Both directions for != and =
+        }
+        if(operator === "="){
+            return "null"
         }
         return "";
     }
@@ -70,7 +73,8 @@ class GraphicModel {
 
         if (selectValue === this.correctValue && ((this.correctDirection === "left" && leftToggle && !rightToggle) ||
             (this.correctDirection === "right" && rightToggle && !leftToggle) ||
-            (this.correctDirection === "both" && leftToggle && rightToggle))) {
+            (this.correctDirection === "both" && leftToggle && rightToggle) || 
+            (this.correctDirection === "null" && !leftToggle && !rightToggle))) {
             return true;
         }
        // console.log(this.correctDirection);

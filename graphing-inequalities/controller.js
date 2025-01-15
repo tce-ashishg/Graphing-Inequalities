@@ -6,14 +6,14 @@ class GraphicController {
         this.dragged = false;
     }
 
-    handleMousePressed(mouseX, mouseY){
+    handleMousePressed(mouseX, mouseY,callee){
         if (this.model.attempts <= 0) return;
 
         let d = dist(mouseX, mouseY, this.model.pointX, this.model.pointY);
         if(d < this.model.snappingRange){
             this.dragged = true;
         }
-        this.view.handleMousePressed(mouseX, mouseY);
+        this.view.handleMousePressed(mouseX, mouseY,"handle MousePressed");
     }
 
     handleMouseDragged(mouseX){
