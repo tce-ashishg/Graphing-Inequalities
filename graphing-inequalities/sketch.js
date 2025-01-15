@@ -9,6 +9,8 @@ let feedbackMessage = "";
 let lastCheckedPointX = null;
 let showCorrectAnswer = false;
 let isMousePressed;
+let prevLeftToggle = this.view.leftToggleState;
+let prevRightToggle = this.view.rightToggleState;
 
 
 function setup() {
@@ -26,7 +28,7 @@ function setup() {
     checkAnswerButton = createButton(`Check ${model.attempts}`);
     checkAnswerButton.position(this.model.start, this.model.pointY + 70);
     checkAnswerButton.mousePressed(() => {
-        if (model.attempts > 0 && model.pointX !== lastCheckedPointX || (this.view.rightToggleState || this.view.leftToggleState)) {
+        if (model.attempts > 0 && (model.pointX !== lastCheckedPointX || toggleState())) {
 
             const result = model.checkAnswer(view.leftToggleState, view.rightToggleState);
             lastCheckedPointX = model.pointX;
@@ -49,9 +51,13 @@ function setup() {
             }
         }
     })
-
 }
 
+function toggleState(){
+    if(this.prevLeftToggle !== this.view.leftToggleState || this.prevRightToggle !== this.view.rightToggleState){
+        return true;
+    }
+}
 
 function restToDefault() {
     model.generateQuestions();
@@ -78,6 +84,7 @@ function draw() {
     textAlign(CENTER, CENTER);
     text(`${feedbackMessage}`, model.start + 150, model.pointY + 100);
 
+    //displaying solution of the problem below the check button
     if (showCorrectAnswer) {
         controller.displaySolution();
 
