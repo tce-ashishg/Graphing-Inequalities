@@ -26,7 +26,7 @@ function setup() {
     checkAnswerButton = createButton(`Check ${model.attempts}`);
     checkAnswerButton.position(this.model.start, this.model.pointY + 70);
     checkAnswerButton.mousePressed(() => {
-        if (model.attempts > 0 && model.pointX !== lastCheckedPointX) {
+        if (model.attempts > 0 && model.pointX !== lastCheckedPointX || (this.view.rightToggleState || this.view.leftToggleState)) {
 
             const result = model.checkAnswer(view.leftToggleState, view.rightToggleState);
             lastCheckedPointX = model.pointX;
