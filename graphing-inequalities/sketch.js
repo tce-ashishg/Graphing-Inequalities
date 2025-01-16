@@ -7,10 +7,10 @@ let newProblemButton;
 let feedbackMessage = "";
 //let attempts = 3;
 let lastCheckedPointX = null;
+let lastLeftToggleState = null;
+let lastRightToggleState = null;
 let showCorrectAnswer = false;
 let isMousePressed;
-let prevRightToggle;
-let prevLeftToggle;
 
 
 function setup() {
@@ -25,13 +25,17 @@ function setup() {
         restToDefault();
     });
 
+    lastCheckedPointX = model.pointX;
     checkAnswerButton = createButton(`Check ${model.attempts}`);
     checkAnswerButton.position(this.model.start, this.model.pointY + 70);
     checkAnswerButton.mousePressed(() => {
-        if (model.attempts > 0 && (model.pointX !== lastCheckedPointX || toggle())) {
+        if (model.attempts > 0 && model.pointX !== lastCheckedPointX || view.leftToggleState !== lastLeftToggleState || 
+            view.rightToggleState !== lastRightToggleState) {
 
             const result = model.checkAnswer(view.leftToggleState, view.rightToggleState);
             lastCheckedPointX = model.pointX;
+            lastLeftToggleState = view.leftToggleState;
+            lastRightToggleState = view.rightToggleState;
 
             if (result) {
                 feedbackMessage = "Correct ✔";
@@ -50,15 +54,10 @@ function setup() {
                 }
             }
         }
-    })
-}
+    });
 
-function toggle(){
-    prevLeftToggle = model.leftToggleState;
-    prevRightToggle = model.rightToggleState;
-    if(prevLeftToggle !== model.leftToggleState || prevRightToggle !== model.rightToggleState){
-        return true;
-    }
+    lastLeftToggleState = view.leftToggleState;
+    lastRightToggleState = view.rightToggleState;
 }
 
 function restToDefault() {
@@ -72,6 +71,8 @@ function restToDefault() {
     model.pointX = model.mapValueToPixel(0);
     view.leftToggleState = true;
     view.rightToggleState = true;
+    lastLeftToggleState = view.leftToggleState;
+    lastRightToggleState = view.rightToggleState;
 }
 
 
