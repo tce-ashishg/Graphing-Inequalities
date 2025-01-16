@@ -25,7 +25,12 @@ function setup() {
         restToDefault();
     });
 
+    //Initializing lastCheckPointX 
     lastCheckedPointX = model.pointX;
+
+    /**
+     * checkAnswerButton to check the answer
+     */
     checkAnswerButton = createButton(`Check ${model.attempts}`);
     checkAnswerButton.position(this.model.start, this.model.pointY + 70);
     checkAnswerButton.mousePressed(() => {
@@ -67,12 +72,12 @@ function restToDefault() {
     showCorrectAnswer = false;
     checkAnswerButton.html(`Check ${model.attempts}`);
     checkAnswerButton.removeAttribute('disabled');
-    lastCheckedPointX = model.pointX;
+    lastCheckedPointX = model.mapValueToPixel(0);
+    lastLeftToggleState = true;
+    lastRightToggleState = true;
     model.pointX = model.mapValueToPixel(0);
     view.leftToggleState = true;
     view.rightToggleState = true;
-    lastLeftToggleState = view.leftToggleState;
-    lastRightToggleState = view.rightToggleState;
 }
 
 
