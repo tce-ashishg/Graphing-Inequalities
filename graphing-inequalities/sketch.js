@@ -9,8 +9,8 @@ let feedbackMessage = "";
 let lastCheckedPointX = null;
 let showCorrectAnswer = false;
 let isMousePressed;
-let prevLeftToggle = this.view.leftToggleState;
-let prevRightToggle = this.view.rightToggleState;
+let prevRightToggle;
+let prevLeftToggle;
 
 
 function setup() {
@@ -28,7 +28,7 @@ function setup() {
     checkAnswerButton = createButton(`Check ${model.attempts}`);
     checkAnswerButton.position(this.model.start, this.model.pointY + 70);
     checkAnswerButton.mousePressed(() => {
-        if (model.attempts > 0 && (model.pointX !== lastCheckedPointX || toggleState())) {
+        if (model.attempts > 0 && (model.pointX !== lastCheckedPointX || toggle())) {
 
             const result = model.checkAnswer(view.leftToggleState, view.rightToggleState);
             lastCheckedPointX = model.pointX;
@@ -53,8 +53,10 @@ function setup() {
     })
 }
 
-function toggleState(){
-    if(this.prevLeftToggle !== this.view.leftToggleState || this.prevRightToggle !== this.view.rightToggleState){
+function toggle(){
+    prevLeftToggle = model.leftToggleState;
+    prevRightToggle = model.rightToggleState;
+    if(prevLeftToggle !== model.leftToggleState || prevRightToggle !== model.rightToggleState){
         return true;
     }
 }
@@ -66,7 +68,7 @@ function restToDefault() {
     showCorrectAnswer = false;
     checkAnswerButton.html(`Check ${model.attempts}`);
     checkAnswerButton.removeAttribute('disabled');
-    lastCheckedPointX = null;
+    lastCheckedPointX = model.pointX;
     model.pointX = model.mapValueToPixel(0);
     view.leftToggleState = true;
     view.rightToggleState = true;
@@ -90,12 +92,12 @@ function draw() {
 
     }
 
-    if(mouseIsPressed && !isMousePressed){
+    if (mouseIsPressed && !isMousePressed) {
         controller.handleMousePressed(mouseX, mouseY);
         isMousePressed = true;
     }
 
-    if(!mouseIsPressed && isMousePressed){
+    if (!mouseIsPressed && isMousePressed) {
         isMousePressed = false;
     }
     // if (lastCheckedPointX !== model.pointX) {
